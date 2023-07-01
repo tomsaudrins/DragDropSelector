@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="drag" constructor="DragDropSelector" version="0.0.1" display-name-key="DragDropSelector" description-key="DragDropSelector description" control-type="standard" >
+    <external-service-usage enabled="false">
+    </external-service-usage>
+    <property name="Files" display-name-key="FileContents_Display_Key" description-key="FileContents_Desc_Key" of-type="SingleLine.Text" usage="output" required="false" />
+    <resources>
+      <code path="index.ts" order="1"/>
+      <css path="./css/style.css" order="1" />
+    </resources>
+  </control>
+</manifest>

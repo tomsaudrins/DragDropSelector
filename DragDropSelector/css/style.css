@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  padding: 40px;
+  background-color: #fff;
+  border: 1px dashed #ccc;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.file-upload:hover {
+  background-color: #f5f7fa;
+  cursor: pointer;
+}
+
+.file-upload input[type="file"] {
+  display: none;
+}
+
+.file-upload-icon {
+  font-size: 50px;
+  color: #0078D4;
+}
+
+.file-upload-text {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #666;
+  text-align: center;
+}
+
+.file-upload-text span {
+  display: block;
+  color: #0078D4;
+  cursor: pointer;
+}
+
+.selected-text {
+    color: #1784ff;
+    font-weight: 500;
+  }
+
+  .file-upload-text {
+    text-align: left;
+    padding-left: 20px;
+  }
+
+.file-upload .file-name {
+  color: #666;
+  font-size: 0.7em;
+  display: list-item;
+  list-style-type: decimal;
+  list-style-position: inside;
+}
+.file-name {
+  display: inline;
+}
+
+.remove-icon {
+  display: inline; /* Add this line to display the icon inline */
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 18px;
+  color: #999;
+}
+
+.remove-icon:hover {
+  color: #333;
+}
