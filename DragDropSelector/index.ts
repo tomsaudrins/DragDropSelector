@@ -10,6 +10,36 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
   private fileContentsArray: { [key: string]: string } = {};
 
   constructor() {}
+  
+  public handleDrop(files: FileList): void {
+    const fileNames: string[] = [];
+    let filesRead = 0;
+    const reader = new FileReader();
+  
+    const processFile = (file: File) => {
+      fileNames.push(file.name);
+      reader.onload = (e) => {
+        if (e.target && e.target.result) {
+          const base64Content = arrayBufferToBase64(e.target.result as ArrayBuffer);
+          this.fileContentsArray[file.name] = base64Content;
+          filesRead++;
+  
+          if (filesRead < files.length) {
+            processFile(files[filesRead]);
+          } else {
+            const allFileNames = Object.keys(this.fileContentsArray);
+            updateFileUploadText(allFileNames.length, allFileNames, this.fileUploadText, this.removeFile.bind(this));
+            this.notifyOutputChanged();
+          }
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    };
+  
+    if (files.length > 0) {
+      processFile(files[0]);
+    }
+  }
 
   public init(
     context: ComponentFramework.Context<IInputs>,
@@ -19,8 +49,8 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
   ): void {
     this.notifyOutputChanged = notifyOutputChanged;
     this.container = container;
-
-    createFileUploadStructure(this.container, this.inputFile, this.fileUploadText);
+  
+    createFileUploadStructure(this.container, this.inputFile, this.fileUploadText, this.handleDrop.bind(this));
     this.inputFile.onchange = this.handleFileUpload.bind(this);
   }
 
@@ -60,11 +90,11 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
   public handleFileUpload(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
   
-    if (!inputElement || !inputElement.files) {
+    if (!inputElement || !inputElement.files || inputElement.files.length === 0) {
       return;
     }
   
-    this.fileContentsArray = {};
+    const files = inputElement.files;
     const fileNames: string[] = [];
     let filesRead = 0;
     const reader = new FileReader();
@@ -77,10 +107,11 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
           this.fileContentsArray[file.name] = base64Content;
           filesRead++;
   
-          if (inputElement.files && filesRead < inputElement.files.length) {
-            processFile(inputElement.files[filesRead]);
+          if (filesRead < files.length) {
+            processFile(files[filesRead]);
           } else {
-            updateFileUploadText(inputElement.files?.length || 0, fileNames, this.fileUploadText, this.removeFile.bind(this));
+            const allFileNames = Object.keys(this.fileContentsArray);
+            updateFileUploadText(allFileNames.length, allFileNames, this.fileUploadText, this.removeFile.bind(this));
             this.notifyOutputChanged();
           }
         }
@@ -88,8 +119,6 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
       reader.readAsArrayBuffer(file);
     };
   
-    if (inputElement.files.length > 0) {
-      processFile(inputElement.files[0]);
-    }
+    processFile(files[0]);
   }
 }

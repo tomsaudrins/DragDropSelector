@@ -37,7 +37,6 @@ body {
 }
 
 .file-upload-text {
-  margin-top: 20px;
   font-size: 18px;
   font-weight: 500;
   color: #666;
@@ -45,7 +44,6 @@ body {
 }
 
 .file-upload-text span {
-  display: block;
   color: #0078D4;
   cursor: pointer;
 }
@@ -53,6 +51,7 @@ body {
 .selected-text {
     color: #1784ff;
     font-weight: 500;
+    margin-bottom: 20px
   }
 
   .file-upload-text {
@@ -67,6 +66,11 @@ body {
   list-style-type: decimal;
   list-style-position: inside;
 }
+
+.file-upload-text .file-name-wrapper { /* Make the selector more specific */
+  display: inline-block;
+}
+
 .file-name {
   display: inline;
 }
@@ -81,4 +85,26 @@ body {
 
 .remove-icon:hover {
   color: #333;
+}
+
+.file-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  padding: 40px;
+  background-color: #fff;
+  border: 1px dashed #ccc;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.file-upload-wrapper:hover {
+  background-color: #f5f7fa;
+  cursor: pointer;
+}
+
+.file-upload {
+  width: 100%;
 }
