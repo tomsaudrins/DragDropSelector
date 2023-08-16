@@ -56,6 +56,17 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
 
   public updateView(context: ComponentFramework.Context<IInputs>): void {
 
+    if (context.updatedProperties.includes("InputEvent") && context.parameters.InputEvent.raw !== undefined) {
+      const inputEvents = String(context.parameters.InputEvent.raw);
+
+      // ClearValue event
+      if (inputEvents.indexOf("ClearValue") > -1) {
+        this.fileContentsArray = {}; // Clear the fileContentsArray object
+        this.fileUploadText.innerHTML = 'Drag & Drop<br><span id="browse">or browse</span>'; // Reset the fileUploadText element
+        this.notifyOutputChanged();
+      }
+  }
+
     this.container.style.width = `${context.mode.allocatedWidth}px`;
     this.container.style.height = `${context.mode.allocatedHeight}px`;
   }
