@@ -9,7 +9,7 @@ export function arrayBufferToBase64(buffer: ArrayBuffer): string {
   }
   
   export function updateFileUploadText(fileCount: number, fileNames: string[], fileUploadText: HTMLElement, removeFileCallback: (fileName: string) => void): void {
-    fileUploadText.innerHTML = `${fileNames.map((name) => `<span class='file-name'>${name}<span class='remove-icon' data-filename='${name}'>🗑</span></span>`).join("<br>")}`;
+    fileUploadText.innerHTML = `${fileNames.map((name) => `<span class='file-name'>${name}<span class='remove-icon' data-filename='${name}'>🗑</span></span>`).join(" ")}`;
   
     const removeIcons = fileUploadText.querySelectorAll(".remove-icon");
     removeIcons.forEach((icon) => {

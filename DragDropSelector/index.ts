@@ -54,7 +54,11 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
     this.inputFile.onchange = this.handleFileUpload.bind(this);
   }
 
-  public updateView(context: ComponentFramework.Context<IInputs>): void {}
+  public updateView(context: ComponentFramework.Context<IInputs>): void {
+
+    this.container.style.width = `${context.mode.allocatedWidth}px`;
+    this.container.style.height = `${context.mode.allocatedHeight}px`;
+  }
 
   public getOutputs(): IOutputs {
     const files: { Name: string; Content: string }[] = [];
