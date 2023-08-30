@@ -8,10 +8,17 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
   private inputFile: HTMLInputElement = document.createElement("input");
   private fileUploadText: HTMLElement = document.createElement("span");
   private fileContentsArray: { [key: string]: string } = {};
-
+  private context: ComponentFramework.Context<IInputs>;
   constructor() {}
   
   public handleDrop(files: FileList): void {
+    const maxFiles = this.context.parameters.MaxFiles.raw || -1;
+    if (maxFiles !== -1 && (Object.keys(this.fileContentsArray).length + files.length) > maxFiles) {
+      // Show error message and return
+      alert("You have exceeded the maximum number of files allowed.");
+      return;
+    }
+  
     const fileNames: string[] = [];
     let filesRead = 0;
     const reader = new FileReader();
@@ -49,7 +56,7 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
   ): void {
     this.notifyOutputChanged = notifyOutputChanged;
     this.container = container;
-  
+    this.context = context
     createFileUploadStructure(this.container, this.inputFile, this.fileUploadText, this.handleDrop.bind(this));
     this.inputFile.onchange = this.handleFileUpload.bind(this);
   }
@@ -104,8 +111,13 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
 
   public handleFileUpload(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-  
+    const maxFiles = this.context.parameters.MaxFiles.raw || -1;
     if (!inputElement || !inputElement.files || inputElement.files.length === 0) {
+      return;
+    }
+    if (maxFiles !== -1 && (Object.keys(this.fileContentsArray).length + inputElement.files.length) > maxFiles) {
+      // Show error message and return
+      alert("You have exceeded the maximum number of files allowed.");
       return;
     }
   
