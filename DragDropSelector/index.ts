@@ -15,7 +15,7 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
     const maxFiles = this.context.parameters.MaxFiles.raw || -1;
     if (maxFiles !== -1 && (Object.keys(this.fileContentsArray).length + files.length) > maxFiles) {
       // Show error message and return
-      alert("You have exceeded the maximum number of files allowed.");
+      alert(`You have exceeded the maximum number of files allowed. You can upload up to ${maxFiles} files.`);
       return;
     }
   
@@ -24,6 +24,13 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
     const reader = new FileReader();
   
     const processFile = (file: File) => {
+      const allowedTypes = this.context.parameters.AllowedTypes.raw || "*/*";
+      if (!allowedTypes.split(',').includes(file.type) && allowedTypes !== "*/*") {
+        // Show error message and return
+        alert(`The file type of ${file.type} is not allowed.`);
+        return;
+      }
+  
       fileNames.push(file.name);
       reader.onload = (e) => {
         if (e.target && e.target.result) {
@@ -117,7 +124,7 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
     }
     if (maxFiles !== -1 && (Object.keys(this.fileContentsArray).length + inputElement.files.length) > maxFiles) {
       // Show error message and return
-      alert("You have exceeded the maximum number of files allowed.");
+      alert(`You have exceeded the maximum number of files allowed. You can upload up to ${maxFiles} files.`);
       return;
     }
   
@@ -127,6 +134,13 @@ export class DragDropSelector implements ComponentFramework.StandardControl<IInp
     const reader = new FileReader();
   
     const processFile = (file: File) => {
+      const allowedTypes = this.context.parameters.AllowedTypes.raw || "*/*";
+      if (!allowedTypes.split(',').includes(file.type) && allowedTypes !== "*/*") {
+        // Show error message and return
+        alert(`The file type of ${file.type} is not allowed.`);
+        return;
+      }
+  
       fileNames.push(file.name);
       reader.onload = (e) => {
         if (e.target && e.target.result) {

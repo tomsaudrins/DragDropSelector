@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="drag" constructor="DragDropSelector" version="1.0.1" display-name-key="DragDropSelector" description-key="DragDropSelector description." control-type="standard" >
+  <control namespace="drag" constructor="DragDropSelector" version="2.0.1" display-name-key="DragDropSelector" description-key="DragDropSelector description." control-type="standard" >
     <external-service-usage enabled="false">
     </external-service-usage>
     <property name="Files" display-name-key="Files" description-key="List of the file contents" of-type="SingleLine.Text" usage="output" required="false" />
     <property name="InputEvent" display-name-key="Input Event" description-key="Event that will trigger an update in behavior" of-type="SingleLine.Text" usage="input"/>
     <property name="MaxFiles" display-name-key="Max Files" description-key="Maximum number of files that can be uploaded" of-type="Whole.None" usage="input" required="true" default-value="-1" />
+    <property name="AllowedTypes" display-name-key="File Types" description-key="Types of files that can be uploaded" of-type="SingleLine.Text" usage="input" required="true" default-value="*/*" />
     <resources>
       <code path="index.ts" order="1"/>
       <css path="./css/style.css" order="1" />
