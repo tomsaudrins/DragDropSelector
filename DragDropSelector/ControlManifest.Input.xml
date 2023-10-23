@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="drag" constructor="DragDropSelector" version="2.0.1" display-name-key="DragDropSelector" description-key="DragDropSelector description." control-type="standard" >
+  <control namespace="drag" constructor="DragDropSelector" version="2.1.1" display-name-key="DragDropSelector" description-key="DragDropSelector description." control-type="standard">
     <external-service-usage enabled="false">
     </external-service-usage>
-    <property name="Files" display-name-key="Files" description-key="List of the file contents" of-type="SingleLine.Text" usage="output" required="false" />
+    <property name="Files" display-name-key="Files" description-key="List of the file contents" of-type="SingleLine.Text" usage="output" required="false" default-value="[]"/>
     <property name="InputEvent" display-name-key="Input Event" description-key="Event that will trigger an update in behavior" of-type="SingleLine.Text" usage="input"/>
     <property name="MaxFiles" display-name-key="Max Files" description-key="Maximum number of files that can be uploaded" of-type="Whole.None" usage="input" required="true" default-value="-1" />
+    <property name="MaxFileSize" display-name-key="Max File Size" description-key="Maximum size of a file in kB" of-type="Whole.None" usage="input" required="true" default-value="-1" />
+    <property name="MaxFileBatchSize" display-name-key="Max File Size" description-key="Maximum size of the batch of the files in kB" of-type="Whole.None" usage="input" required="true" default-value="-1" />
     <property name="AllowedTypes" display-name-key="File Types" description-key="Types of files that can be uploaded" of-type="SingleLine.Text" usage="input" required="true" default-value="*/*" />
+    <property name="EncodingType" display-name-key="Type of files encoding" description-key="Base64 or PlainText" of-type="Enum" usage="input" required="true" default-value="0">
+      <value name="Base64" display-name-key="Base64" description-key="Base64">0</value>
+      <value name="PlainText" display-name-key="Plain Text" description-key="Plain Text">1</value>
+    </property>
     <resources>
       <code path="index.ts" order="1"/>
       <css path="./css/style.css" order="1" />
